@@ -37,6 +37,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'rest_framework',
     'esupport.apps.EsupportConfig',
     'corsheaders',
@@ -88,11 +89,15 @@ WSGI_APPLICATION = 'support.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600
-    )
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'datosyuri',
+    'USER': 'Yuri-Lib4',
+    'PASSWORD': 'B8Uixl9LGCHI',
+    'HOST': 'ep-shrill-wildflower-22501754.us-east-2.aws.neon.tech',
+    'PORT': '5432',
+    'OPTIONS': {'sslmode': 'require'},
+  }
 }
 
 # Password validation
@@ -136,9 +141,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 if not DEBUG:
-    
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
