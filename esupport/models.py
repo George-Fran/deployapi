@@ -171,3 +171,4 @@ class Factura(models.Model):
 
     def __str__(self):
         return f"Factura para el cliente: {self.cliente} - Pedido: {self.pedido} - Total: {self.total}"
+        

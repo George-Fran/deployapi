@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 
 from pathlib import Path
+from storages.backends.gcloud import GoogleCloudStorage
 import dj_database_url
+from google.oauth2 import service_account
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup.apps.CleanupConfig'
 ]
 
 MIDDLEWARE = [
@@ -129,6 +133,17 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+DEFAULT_FILE_STORAGE = 'support.gcsUtils.Media'
+GS_FILE_OVERWRITE = False
+
+GS_BUCKET_NAME = 'apisupport'
+GS_STORAGE_CLASS = 'STANDARD'
+GS_REGION = 'us-central1'
+
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'key.json'),
+)
 
 # Ruta donde se almacenarán los archivos multimedia (imágenes, videos, etc.)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
